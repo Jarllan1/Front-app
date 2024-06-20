@@ -4,7 +4,7 @@ void main() => runApp(MaterialApp(
     home:Scaffold(
       backgroundColor: Colors.lime,
      appBar: AppBar(
-      title: Text('User Profile',
+      title: Text('User Profile
       style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
       ),
       backgroundColor: Colors.limeAccent,
