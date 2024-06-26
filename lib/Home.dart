@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  int year = 0;
+
 
   @override
   Widget build(BuildContext context) {
@@ -24,16 +32,16 @@ class Home extends StatelessWidget {
               children: <Widget>[
                 Center(
                   child: CircleAvatar(
-                    child: Image.asset('assets/reindeer.png'),
+                    backgroundImage: AssetImage('assets/reindeer.png'),
                     radius: 50.0,
                   ),
                 ),
-                Divider(height: 75.0,color:Colors.lime ,),
+                Divider(height: 75.0,color:Colors.black87,thickness: 4.0,),
                 Row(
                   children: [
                     Icon(
                         Icons.person_2,
-                        color: Colors.amber,
+                        color: Colors.limeAccent,
                     ),
                     SizedBox(width: 3.0,),
                     Text(
@@ -58,7 +66,7 @@ class Home extends StatelessWidget {
                 Row(
                   children: [
                     Icon(Icons.calendar_month,
-                    color: Colors.amber,
+                    color: Colors.limeAccent,
                     ),
                     SizedBox(width: 3.0,),
                     Text(
@@ -72,7 +80,7 @@ class Home extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  'Third Year',
+                  '$year year',
                   style: TextStyle(
                     fontSize:25.0 ,
                     fontWeight: FontWeight.bold,
@@ -83,7 +91,7 @@ class Home extends StatelessWidget {
                 Row(
                   children: [
                     Icon(Icons.email_sharp,
-                    color: Colors.amber,
+                    color: Colors.limeAccent,
                     ),
                     SizedBox(width: 3.0,),
                     Text(
@@ -112,8 +120,12 @@ class Home extends StatelessWidget {
 
               children: [
                 ElevatedButton(
-                   style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.amber)),
-                  onPressed: (){},
+                   style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.limeAccent)),
+                  onPressed: (){
+                     setState(() {
+                       year+= 1;
+                     });
+                  },
                     child: Text(
                         'Add Year',
                     style: TextStyle(
@@ -130,4 +142,5 @@ class Home extends StatelessWidget {
     );
   }
 }
+
 
