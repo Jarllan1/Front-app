@@ -4,6 +4,7 @@ import 'package:jarllan/Pages/Dashboard.dart';
 import 'package:jarllan/Pages/Menu.dart';
 
 void main() => runApp(MaterialApp(
+  initialRoute: '/Menu',
     routes:{
       '/': (context) =>Dashboard(),
       '/Menu' : (context) => Menu(),

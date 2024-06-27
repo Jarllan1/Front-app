@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'Services/MenuCard.dart';
+import 'Services/product.dart';
+
 
 class Menu extends StatefulWidget {
   const Menu({super.key});
@@ -6,35 +9,37 @@ class Menu extends StatefulWidget {
   @override
   State<Menu> createState() => _MenuState();
 }
+List products = <Product>[
+Product(productName:"Pares", price: 109.99),
+Product(productName:"Spatetti", price: 79.99),
+Product(productName:"Chimken", price: 99.99),
+Product(productName:"Float", price: 50.99),
+Product(productName:"Sundae", price: 39.99),
+];
+
+
 
 class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightGreen,
-      body: Container(
-        child:SafeArea(
-          child: Column(
-            children: [
-              ElevatedButton(
-                style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.limeAccent)),
-                onPressed: (){
-                  Navigator.pushNamed(context, '/Dashboard');
-                },
-                child: Text('Go to Dashboard'),
-              ),
-              ElevatedButton(
-                style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.limeAccent)),
-                onPressed: (){
-                  Navigator.pushNamed(context, '/Profile');
-                },
-                child: Text('Go to Profile'),
-              ),
-
-            ],
+      backgroundColor: Colors.green,
+      appBar: AppBar(
+        backgroundColor: Colors.lime,
+        title: Text(
+          'Menu',
+          style: TextStyle(
+            letterSpacing: 3.0,
           ),
         ),
+        centerTitle: true,
       ),
+      body: Padding(
+  padding: EdgeInsets.all(7.0),
+  child:Column(
+    children: products.map((product)=> Menucard(product: product)).toList(),
+) ,
+),
     );
   }
 }
