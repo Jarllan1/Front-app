@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jarllan/Pages/Services/product.dart';
+import 'package:jarllan/Services/product.dart';
 import 'product.dart';
 
 

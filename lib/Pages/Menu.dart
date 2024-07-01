@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'Services/MenuCard.dart';
-import 'Services/product.dart';
+import 'package:jarllan/Services/MenuCard.dart';
+import 'package:jarllan/Services/product.dart';
+
 
 
 class Menu extends StatefulWidget {
