@@ -5,107 +5,123 @@ class Signup extends StatefulWidget {
 
   @override
   State<Signup> createState() => _SignupState();
-
 }
 
 class _SignupState extends State<Signup> {
   final formKey = GlobalKey<FormState>();
-  String name ='';
-  String email ='';
-  String password='';
-  @override
+  String name = '';
+  String email = '';
+  String password = '';
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.lime,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 0),
-          child:Column(
+          child: Column(
             children: <Widget>[
               Text(
-                'Lets Get Started',
+                'Let\'s Get Started',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
+                  fontSize: 30.5,
                   color: Colors.lightGreen,
                 ),
               ),
-              SizedBox(height: 25.0,),
+              SizedBox(height: 25.0),
               Form(
                 key: formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children:<Widget>[
+                  children: <Widget>[
                     TextFormField(
                       maxLength: 50,
                       decoration: InputDecoration(
-                        label: Text('Name'),
+                        labelText: 'Name',
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0)
+                          borderRadius: BorderRadius.circular(20.0),
                         ),
                       ),
-                      validator: (value){
-                        if(value == null || value.isEmpty){
-                          return'Please provide a name';
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please provide a name';
                         }
-                        if(value.length < 2){
-                          return 'Name should be atleast 3 letters long';
+                        if (value.length < 3) {
+                          return 'Name should be at least 3 letters long';
                         }
                         return null;
                       },
-                      onSaved: (value){
-                        password = value!;
+                      onSaved: (value) {
+                        name = value!;
                       },
                     ),
-                    SizedBox(height: 25.0,),
+                    SizedBox(height: 25.0),
                     TextFormField(
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
-                          label: Text('Email'),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20.0)
-                          ),
+                        labelText: 'Email',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
                       ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please provide an email';
+                        }
+                        // Add more email validation logic if needed
+                        return null;
+                      },
+                      onSaved: (value) {
+                        email = value!;
+                      },
                     ),
-                    SizedBox(height: 25.0,),
+                    SizedBox(height: 25.0),
                     TextFormField(
                       obscureText: true,
                       decoration: InputDecoration(
-                        label: Text('Password'),
+                        labelText: 'Password',
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.0)
+                          borderRadius: BorderRadius.circular(20.0),
                         ),
                       ),
-                      validator: (value){
-                        if(value == null || value.isEmpty){
-                          return'Please provide a password';
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please provide a password';
                         }
-                        if(value.length < 8){
-                          return 'Password shoul be atleast 8 characters long';
+                        if (value.length < 8) {
+                          return 'Password should be at least 8 characters long';
                         }
-                        if(value.length > 20){
-                          return 'Too long';
-                        }
+                        // Add more password validation logic if needed
+                        return null;
+                      },
+                      onSaved: (value) {
+                        password = value!;
                       },
                     ),
-                    ElevatedButton(
-                        onPressed: (){
-                         if(formKey.currentState!.validate()){
-                           formKey.currentState!.save();
-                           print(name);
-                           print(email);
-                           print(password);
-                         }
+                    SizedBox(height: 25.0),
+                    SizedBox(
+                      width: double.infinity, // This makes the button full width
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            formKey.currentState!.save();
+                            print(name);
+                            print(email);
+                            print(password);
+                          }
                         },
                         child: Text('Sign up'),
-                        style:ElevatedButton.styleFrom(
-                          backgroundColor:  Colors.lightGreen,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.lightGreen,
                           foregroundColor: Colors.black87,
                         ),
+                      ),
                     ),
-                  ]
+                  ],
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -113,3 +129,4 @@ class _SignupState extends State<Signup> {
     );
   }
 }
+
