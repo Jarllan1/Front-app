@@ -77,48 +77,28 @@ class _SignupState extends State<Signup> {
                         email = value!;
                       },
                     ),
-                    SizedBox(height: 25.0),
-                    TextFormField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
+                    SizedBox(height: 40.0,),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        ElevatedButton(
+                          onPressed: (){
+                            if(formKey.currentState!.validate()){
+                              formKey.currentState!.save();
+                              print(name);
+                              print(email);
+                              print(password);
+                            }
+                          },
+                          child: Text('Sign up'),
+                          style:ElevatedButton.styleFrom(
+                            backgroundColor:  Colors.green[300],
+                            foregroundColor: Colors.black87,
+                          ),
                         ),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please provide a password';
-                        }
-                        if (value.length < 8) {
-                          return 'Password should be at least 8 characters long';
-                        }
-                        // Add more password validation logic if needed
-                        return null;
-                      },
-                      onSaved: (value) {
-                        password = value!;
-                      },
+                      ],
                     ),
-                    SizedBox(height: 25.0),
-                    SizedBox(
-                      width: double.infinity, // This makes the button full width
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            formKey.currentState!.save();
-                            print(name);
-                            print(email);
-                            print(password);
-                          }
-                        },
-                        child: Text('Sign up'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.lightGreen,
-                          foregroundColor: Colors.black87,
-                        ),
-                      ),
-                    ),
+
                   ],
                 ),
               ),
