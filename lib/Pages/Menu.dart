@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:jarllan/Services/MenuCard.dart';
 import 'package:jarllan/Services/product.dart';
+import 'package:http/http.dart' as http;
 
 
 
@@ -10,17 +13,29 @@ class Menu extends StatefulWidget {
   @override
   State<Menu> createState() => _MenuState();
 }
-List products = <Product>[
-Product(productName:"Pares", price: 109.99),
-Product(productName:"Spatetti", price: 79.99),
-Product(productName:"Chimken", price: 99.99),
-Product(productName:"Float", price: 50.99),
-Product(productName:"Sundae", price: 39.99),
-];
-
-
 
 class _MenuState extends State<Menu> {
+  late Future<List<dynamic>> products;
+  Future<List<dynamic>>fetchData() async{
+    final response = await http.get(Uri.parse('http://192.168.193.23:8080/products')
+    );
+      final data = jsonDecode(response.body);
+      List products = <Product>[];
+      for(var product in data){
+        products.add(Product.fromJson(product));
+      }
+      return products;
+      for(var product in products){
+        print(product.productName);
+      }
+      print(response.body);
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+     products fetchData();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,12 +50,7 @@ class _MenuState extends State<Menu> {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-  padding: EdgeInsets.all(7.0),
-  child:Column(
-    children: products.map((product)=> Menucard(product: product)).toList(),
-) ,
-),
+
     );
   }
 }
