@@ -34,7 +34,7 @@ class _MenuState extends State<Menu> {
   void initState() {
     // TODO: implement initState
     super.initState();
-     products fetchData();
+     products = fetchData();
   }
   @override
   Widget build(BuildContext context) {
