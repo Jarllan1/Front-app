@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:jarllan/Services/MenuCard.dart';
 import 'package:jarllan/Services/product.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 
 
@@ -51,7 +52,61 @@ class _MenuState extends State<Menu> {
         ),
         centerTitle: true,
       ),
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0),
+        child: FutureBuilder(
+          future: products,
+          builder: (context, snapshots){
+            if(snapshots.connectionState == ConnectionState.waiting){
+              return Center(
+                child: SpinKitWaveSpinner(
+                  color: Colors.blueAccent,
+                  size: 90.0,
+                ),
+              );
+            }
+            if(snapshots.hasData){
+              List products = snapshots.data!;
+              return Padding(
+              padding: EdgeInsets.all(3.0),
+              child: ListView.builder(
+              itemCount: products.length,
+              itemBuilder:(context, index){
+                return Card(
+                  color: Colors.lime,
+                child: ListTile(
+                  title: Column(
+                    children: [
+                     Text(
+                         products[index].productName,
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 25.0,
+                          ),),
+                     Text(
+                       products[index].price.toString(),
+                       style: TextStyle(
+                         color: Colors.black87,
+                         fontSize: 15.0,
+                       ),
+                     )
+                  ],
+                ),
+                  onTap: (){},
+                ),
+                );
+    } ,
+              ),
+    ) ;
+               
+            }
 
+            return Center(
+              child: Text('Unable to load data'),
+            );
+          },
+        ),
+      ),
     );
   }
 }

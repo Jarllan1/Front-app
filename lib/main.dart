@@ -7,9 +7,9 @@ import 'package:jarllan/Pages/Menu.dart';
 import 'package:jarllan/Pages/Login.dart';
 
 void main() => runApp(MaterialApp(
-  initialRoute: '/menu',
+  initialRoute: '/login',
     routes:{
-      '/': (context) =>Dashboard(),
+      '/dashboard': (context) =>Dashboard(),
       '/menu' : (context) => Menu(),
       '/profile': (context) => Home(),
       '/signup' : (context) => Signup(),

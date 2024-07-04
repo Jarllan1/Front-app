@@ -71,6 +71,7 @@ String password='';
                          children: [
                          ElevatedButton(
                            onPressed: (){
+                             Navigator.pushReplacementNamed(context, '/dashboard');
                              if(formKey.currentState!.validate()){
                                formKey.currentState!.save();
                                print(name);
