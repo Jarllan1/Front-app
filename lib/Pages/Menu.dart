@@ -19,7 +19,7 @@ class Menu extends StatefulWidget {
 class _MenuState extends State<Menu> {
   late Future<List<dynamic>> products;
   Future<List<dynamic>>fetchData() async{
-    final response = await http.get(Uri.parse('http://192.168.193.23:8080/products')
+    final response = await http.get(Uri.parse('http://192.168.195.210:8080/products')
     );
       final data = jsonDecode(response.body);
       List products = <Product>[];
