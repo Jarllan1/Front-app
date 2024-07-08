@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:jarllan/Pages/SelectedProduct.dart';
 import 'package:jarllan/Services/MenuCard.dart';
 import 'package:jarllan/Services/product.dart';
 import 'package:http/http.dart' as http;
@@ -92,7 +93,14 @@ class _MenuState extends State<Menu> {
                      )
                   ],
                 ),
-                  onTap: (){},
+                  onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Selectedproduct(product: products[index]),
+                      )
+                    );
+                  }
                 ),
                 );
     } ,
