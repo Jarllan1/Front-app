@@ -142,7 +142,7 @@ String password='';
                       color: Colors.deepOrange
                     ),
                   ),
-                  onTap: ()=> Navigator.popAndPushNamed(context, 'sign up'),
+                  onTap: ()=> Navigator.popAndPushNamed(context, '/signup'),
                 )
              ],
            )
