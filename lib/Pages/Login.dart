@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 import 'package:flutter/material.dart';
+import 'package:jarllan/Services/User.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -11,6 +15,20 @@ final formKey = GlobalKey<FormState>();
 String name ='';
 String email ='';
 String password='';
+bool _obscure = true;
+
+login(User user) async {
+  final response = await http.post(
+    Uri.parse('http: // 10.0.2.2:8080/api/v1/auth/login'),
+    headers: <String, String>{
+      'content-Type' :'application/json; charset=UTF-8'
+    },
+    body: jsonEncode (<String, dynamic>){
+      'usernameOrEmail' : user.email;
+      'password' : user.password
+  }
+  ),
+}
   @override
   Widget build(BuildContext context) {
      return Scaffold(
@@ -71,12 +89,15 @@ String password='';
                          children: [
                          ElevatedButton(
                            onPressed: (){
-                             Navigator.pushReplacementNamed(context, '/dashboard');
+                            // Navigator.pushReplacementNamed(context, '/dashboard');
                              if(formKey.currentState!.validate()){
                                formKey.currentState!.save();
-                               print(name);
-                               print(email);
-                               print(password);
+                              User user = User(
+                                username: '',
+                                email: email,
+                                password:  password
+                              );
+                              login(user);
                              }
                            },
                            child: Text('Log In'),
