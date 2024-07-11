@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:jarllan/Services/User.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';  // Import FontAwesome for icons
+import 'package:jarllan/Services/User.dart';  // Ensure this import path matches your project structure
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -37,19 +38,15 @@ class _LoginState extends State<Login> {
       if (response.statusCode == 200) {
         // Handle the response
         print('Login successful');
-        // Navigate to the next page or perform any action on successful login
+        Navigator.pushReplacementNamed(context, '/dashboard'); // Navigate to the dashboard on success
       } else {
         // Handle the error
         print('Failed to login: ${response.body}');
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to login: ${response.body}')),
-        );
+        _showErrorDialog('Failed to login: ${response.body}');  // Show the error message
       }
     } catch (e) {
       print('Error occurred: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('An error occurred: $e')),
-      );
+      _showErrorDialog('An error occurred: $e');  // Show the error message
     } finally {
       setState(() {
         _isLoading = false; // Set loading state to false after request completes
@@ -57,22 +54,52 @@ class _LoginState extends State<Login> {
     }
   }
 
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,  // Allows dismissing the dialog by tapping outside
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Error'),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();  // Close the dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.lime,
-      body: SafeArea(
+      appBar: AppBar(
+        backgroundColor: Colors.green[300],
+        title: Text('Log In'),
+        centerTitle: true,
+        // Removed the leading property to hide the back button
+      ),
+      body: Center( // Center the content vertically and horizontally
         child: Padding(
-          padding: EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 0),
+          padding: EdgeInsets.all(10.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center, // Center content vertically
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Text(
-                'LogIn',
+                'Log In',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 30.5,
                   color: Colors.black87,
                 ),
+                textAlign: TextAlign.center, // Center the text
               ),
               SizedBox(height: 25.0),
               Form(
@@ -86,6 +113,7 @@ class _LoginState extends State<Login> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20.0),
                         ),
+                        prefixIcon: Icon(FontAwesomeIcons.envelope), // Add email icon
                       ),
                       onSaved: (value) {
                         email = value ?? '';
@@ -108,6 +136,7 @@ class _LoginState extends State<Login> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20.0),
                         ),
+                        prefixIcon: Icon(FontAwesomeIcons.lock), // Add lock icon
                         suffixIcon: IconButton(
                           icon: Icon(_obscure ? Icons.visibility : Icons.visibility_off),
                           onPressed: () {
@@ -136,7 +165,7 @@ class _LoginState extends State<Login> {
                   ],
                 ),
               ),
-              SizedBox(height: 40.0),
+              SizedBox(height: 20.0),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -153,8 +182,12 @@ class _LoginState extends State<Login> {
                         if (!_isLoading) {
                           login(user); // Call the login function
                         }
+                      } else {
+                        // Display error messages for invalid email or password
+                        setState(() {
+                          // Clear any existing error message
+                        });
                       }
-                      Navigator.pushReplacementNamed(context, '/dashboard');
                     },
                     child: _isLoading
                         ? CircularProgressIndicator(
@@ -168,23 +201,25 @@ class _LoginState extends State<Login> {
                   ),
                 ],
               ),
-              SizedBox(height: 70.0),
+              SizedBox(height: 20.0), // Add some space between buttons
               Text(
                 'Sign in with.',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
+                textAlign: TextAlign.center, // Center the text
               ),
-              SizedBox(height: 40),
+              SizedBox(height: 20.0),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  ElevatedButton(
+                  ElevatedButton.icon(
                     onPressed: () {},
-                    child: Text('Log In with Facebook'),
+                    icon: FaIcon(FontAwesomeIcons.facebook, color: Colors.white), // Facebook icon
+                    label: Text('Log In with Facebook'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blueAccent,
-                      foregroundColor: Colors.black87,
+                      foregroundColor: Colors.white,
                     ),
                   ),
                 ],
@@ -193,9 +228,10 @@ class _LoginState extends State<Login> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  ElevatedButton(
+                  ElevatedButton.icon(
                     onPressed: () {},
-                    child: Text('Log In with Google'),
+                    icon: FaIcon(FontAwesomeIcons.google, color: Colors.red), // Google icon
+                    label: Text('Log In with Google'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
                       foregroundColor: Colors.black87,
@@ -203,23 +239,30 @@ class _LoginState extends State<Login> {
                   ),
                 ],
               ),
-              SizedBox(height: 40.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text('Already have an account?'),
-                  SizedBox(width: 10.0),
-                  InkWell(
-                    child: Text(
-                      'Sign up here',
-                      style: TextStyle(
-                        color: Colors.deepOrange,
-                      ),
-                    ),
-                    onTap: () => Navigator.popAndPushNamed(context, '/signup'),
+              SizedBox(height: 35.0),
+              Center(
+                child: Text(
+                  'Don\'t have an account?',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black87,
                   ),
-                ],
+                ),
               ),
+              SizedBox(height: 10.0), // Add some space between text and link
+              Center(
+                child: InkWell(
+                  child: Text(
+                    'Sign up here.',
+                    style: TextStyle(
+                      color: Colors.deepOrange,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  onTap: () => Navigator.pushReplacementNamed(context, '/signup'),
+                ),
+              ),
+              SizedBox(height: 20.0), // Add some space from the bottom
             ],
           ),
         ),
