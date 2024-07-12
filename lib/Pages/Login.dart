@@ -81,7 +81,8 @@ class _LoginState extends State<Login> {
       backgroundColor: Colors.lime,
       appBar: AppBar(
         backgroundColor: Colors.green[300],
-        title: Text('Log In'),
+        title: Text('ℒℯ𝒶𝒻 ℰ𝓈𝓈ℯ𝓃𝒸ℯ',
+        style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),),
         centerTitle: true,
         // Removed the leading property to hide the back button
       ),

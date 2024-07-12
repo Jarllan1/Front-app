@@ -23,7 +23,7 @@ class _DashboardState extends State<Dashboard> {
       backgroundColor: Colors.lightGreen,
       appBar: AppBar(
         title: Text(
-          'Dashboard',
+          'ℒℯ𝒶𝒻 ℰ𝓈𝓈ℯ𝓃𝒸ℯ',
           style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.limeAccent,
