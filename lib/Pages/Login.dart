@@ -83,7 +83,7 @@ class _LoginState extends State<Login> {
         backgroundColor: Colors.green[300],
         title: Text('ℒℯ𝒶𝒻 ℰ𝓈𝓈ℯ𝓃𝒸ℯ',
         style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),),
-        centerTitle: true,
+        centerTitle: true, //asdf
         // Removed the leading property to hide the back button
       ),
       body: Center( // Center the content vertically and horizontally
